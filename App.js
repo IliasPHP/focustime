@@ -6,8 +6,8 @@ import {
   SafeAreaView,
   StatusBar,
   Platform,
-  AsyncStorage,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Focus } from './src/features/focus/Focus';
 import { FocusHistory } from './src/features/focus/FocusHistory';
 import { Timer } from './src/features/timer/Timer';
@@ -35,9 +35,7 @@ export default function App() {
   const saveFocusHistory = async () => {
     try {
       await AsyncStorage.setItem('focusHistory', JSON.stringify(focusHistory));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (error) {}
   };
 
   const loadHistory = async () => {
@@ -46,9 +44,7 @@ export default function App() {
       if (history && JSON.parse(history).length) {
         SetFocusHistory(JSON.parse(history));
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -61,7 +57,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors.darkBlue} barStyle="light-content" />
+      <StatusBar backgroundColor={colors.darkBlue} barStyle='light-content' />
 
       {focusSubject ? (
         <Timer
